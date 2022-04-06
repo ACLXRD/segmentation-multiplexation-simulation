@@ -1,4 +1,5 @@
 let groupList = document.getElementById("segmetnList");
+let muxList = document.getElementById("muxList");
 let visible = document.getElementsByClassName('post');
 
 function getMessage(){
@@ -72,6 +73,7 @@ function copyText() {
 function segmentation(txt){
     let segments = txt.split(" ");
     let segmentsWID = [];
+   
     let c = 0;
     let ul = document.createElement('ul');
     ul.setAttribute('class','list-group list-group-horizontal m-auto');    
@@ -105,7 +107,24 @@ function sendPackage(segments){
         unorderSegments.push(segments[numbers.pop()]);
     }
 
-    
+    let c = 0;
+    let ul = document.createElement('ul');
+    ul.setAttribute('class','list-group list-group-horizontal m-auto');    
+    muxList.appendChild(ul);
+
+    for (let i = 0; i < unorderSegments.length; i++) {
+        c++;
+        if(c === 7){
+            ul = document.createElement('ul');
+            ul.setAttribute('class','list-group list-group-horizontal m-auto');
+            muxList.appendChild(ul);
+            c = 0;    
+        }
+        let li = document.createElement("li");
+        li.appendChild(document.createTextNode(unorderSegments[i]));
+        li.setAttribute("class", "list-group-item");
+        ul.appendChild(li);
+    }
 
 
     mux(unorderSegments);
